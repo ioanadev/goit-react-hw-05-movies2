@@ -4,7 +4,7 @@ import { Error } from 'components/Error';
 import { MovieList } from 'components/MovieList';
 import './MoviesPage.css';
 
-export const MoviesPage = () => {
+const MoviesPage = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [movies, setMovies] = useState([]);
   const [hasError, setHasError] = useState(false);
@@ -55,3 +55,4 @@ export const MoviesPage = () => {
     </main>
   );
 };
+export default MoviesPage;

@@ -1,18 +1,18 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { fetchMovieCredits } from 'services/request';
-import { Loading } from './Loading';
+//import { Loading } from './Loading';
 import { Error } from './Error';
 
-export const Cast = () => {
+const Cast = () => {
   const { movieId } = useParams();
   const [cast, setCast] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  //const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   console.log('Movie id', movieId);
 
   useEffect(() => {
-    setIsLoading(true);
+    // setIsLoading(true);
     fetchMovieCredits(movieId)
       .then(res => {
         console.log('raspuns cast:', res);
@@ -22,16 +22,15 @@ export const Cast = () => {
       .catch(error => {
         console.log(error);
         setHasError(true);
-        setIsLoading(false);
-      })
-      .finally(() => {
-        setIsLoading(false);
+        // setIsLoading(false);
       });
   }, [movieId]);
   console.log('Cast:', cast);
+
+  const defaultPicture =
+    'https://w7.pngwing.com/pngs/141/425/png-transparent-user-profile-computer-icons-avatar-profile-s-free-angle-rectangle-profile-cliparts-free-thumbnail.png ';
   return (
     <>
-      {isLoading && <Loading />}
       {hasError && <Error />}
       <div>
         <h1>Cast:</h1>
@@ -39,19 +38,17 @@ export const Cast = () => {
       <ul>
         {cast.map(actor => (
           <>
-            <li className="shadow-lg w-25 p-5 text-center" key={actor.id}>
-              {actor.profile_path ? (
-                <img
-                  src={`https://image.tmdb.org/t/p/w200${actor.profile_path}`}
-                  alt={actor.name}
-                />
-              ) : (
-                []
-              )}
-              {/* <img
-              src={`https://image.tmdb.org/t/p/w200${actor.profile_path}`}
-              alt={actor.name}
-            /> */}
+            <li className="shadow-lg w-25 text-center" key={actor.id}>
+              <img
+                width={200}
+                src={
+                  actor.profile_path
+                    ? `https://image.tmdb.org/t/p/w200${actor.profile_path}`
+                    : defaultPicture
+                }
+                alt={actor.name}
+              />
+
               <h4 className="p-2">Name: {actor.name}</h4>
               <h6>Character: {actor.character}</h6>
             </li>
@@ -63,3 +60,4 @@ export const Cast = () => {
     </>
   );
 };
+export default Cast;

@@ -1,18 +1,18 @@
 import { Error } from 'components/Error';
-import { Loading } from 'components/Loading';
+//import { Loading } from 'components/Loading';
 import { fetchMovieDetails } from 'services/request';
 import { useEffect, useState } from 'react';
 import { NavLink, useParams, Outlet } from 'react-router-dom';
 
-export const MovieDetailsPage = () => {
+const MovieDetailsPage = () => {
   const { movieId } = useParams();
   console.log('Movie id', movieId);
   const [movieData, setMovieData] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
+  // const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
-    setIsLoading(true);
+    // setIsLoading(true);
     fetchMovieDetails(movieId)
       .then(res => {
         console.log('raspuns:', res);
@@ -22,10 +22,7 @@ export const MovieDetailsPage = () => {
       .catch(error => {
         console.log(error);
         setHasError(true);
-        setIsLoading(false);
-      })
-      .finally(() => {
-        setIsLoading(false);
+        // setIsLoading(false);
       });
   }, [movieId]);
 
@@ -35,7 +32,6 @@ export const MovieDetailsPage = () => {
       ? movieData.genres.map(genre => genre.name)
       : [];
   if (hasError) return <Error />;
-  if (isLoading) return <Loading />;
 
   return (
     <main>
@@ -88,3 +84,4 @@ export const MovieDetailsPage = () => {
     </main>
   );
 };
+export default MovieDetailsPage;

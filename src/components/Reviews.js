@@ -4,7 +4,7 @@ import { fetchMovieReviews } from 'services/request';
 import { Error } from './Error';
 import { Loading } from './Loading';
 
-export const Reviews = () => {
+const Reviews = () => {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -55,3 +55,4 @@ export const Reviews = () => {
     </>
   );
 };
+export default Reviews;
